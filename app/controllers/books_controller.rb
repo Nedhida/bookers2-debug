@@ -10,6 +10,7 @@ before_action :ensure_correct_user, only: [:update, :edit]
   def index
     @book = Book.new
     @books = Book.all
+    @favorite = Book.find(params[:id])
   end
 
   def create
