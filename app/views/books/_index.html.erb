@@ -18,13 +18,13 @@
         <td><%= book.body %></td>
         <% if fav.favorited_by?(current_user) %>
           <td>
-            <%= link_to favs_favorites_path(fav),method: :delete do %>
+            <%= link_to @favorite_favorites_path(fav),method: :delete do %>
               <div class="pink">🤍<%= fav.favorites.count %></div>
             <% end %>
           </td>
         <% else %>
           <td>
-            <%= link_to favs_favorites_path(fav),method: :post do %>
+            <%= link_to @favorites_path(fav),method: :post do %>
               <div class="blue">🤍<%= fav.favorites.count %></div>
             <% end %>
           </td>
