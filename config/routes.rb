@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   root 'homes#top'
   get 'home/about' => 'homes#about'
 
-  post "favorites/:book_id/create" => "likes#create"
-  post "favorites/:book_id/destroy" => "likes#destroy"
+  resource :favorites, only: [:create, :destroy]
 
 end

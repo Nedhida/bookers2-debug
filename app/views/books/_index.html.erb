@@ -16,19 +16,9 @@
         </td>
         <td><%= link_to book.title, book_path(book), class: "book_#{book.id}" %></td>
         <td><%= book.body %></td>
-        <% if Favorite.find_by(user_id: @current_user.id, book_id: @book.id) %>
-          <td>
-            <%= link_to ("/favorites/#{booked_id}/destroy",{method: :"post"}) do %>
-              <div class="pink">🤍<%= @favorites.count %></div>
-            <% end %>
-          </td>
-        <% else %>
-          <td>
-            <%= link_to ("/favorites/#{booked_id}/create",{method: :"post"}) do %>
-              <div class="blue">🤍<%= @favorites.count %></div>
-            <% end %>
-          </td>
-        <% end %>
+
+
+
       </tr>
     <% end %>
   </tbody>

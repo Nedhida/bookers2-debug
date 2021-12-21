@@ -11,7 +11,6 @@ before_action :ensure_correct_user, only: [:update, :edit]
     @book = Book.new
     @books = Book.all
     @booked = Book.find(params[:id])
-    @favorite = Favorite.new
   end
 
   def create
