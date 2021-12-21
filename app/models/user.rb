@@ -7,8 +7,9 @@ class User < ApplicationRecord
   has_many :books, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorited_books, through: :favorites, source: :book
-  def already_favorited?(book)
-    self.favorites.exists?(book_id: book.id)
+
+  def favorited_by?(book_id)
+		favorites.where(book_id: book_id).exists?
   end
 
   attachment :profile_image, destroy: false
