@@ -13,25 +13,31 @@ class User < ApplicationRecord
 
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: {maximum: 50}
-  #foreign_key: "follower_id"外部キー
-  has_many :active_relationships, class_name: "Relationship",foreign_key: "follower_id", dependent: :destroy
-  has_many :passive_relationships, class_name: "Relationship",foreign_key: "followed_id",dependent: :destroy
-  #source: 参照先を指定するキー
-  has_many :following, through: :active_relationships, source: :followed
-  has_many :followers, through: :passive_relationships, source: :follower
-end
 
-#ユーザーをフォローする
+  #foregin_key = 入り口。source = 出口
+
+  has_many :relationships
+  #架空のfollowingクラス（モデル）をこの時点で命名.捕捉:throughで中間テーブルを設定,relationshipsテーブルのfollow_idを参考にfollowingsモデルにアクセスする
+  #結果、user.followingsと打つとuserが中間テーブルrelationshipsを取得、１つ１つのrelationshipのfollow_idから「フォローしているUser達」を取得
+  has_many :followings, through: :relationships, source: :follow
+  #has_many :relationshipsの逆方向、架空のクラスを命名しclass_nameでrelationshipモデルであると捕捉。follow_idを入り口とする。
+  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
+  #架空のクラスを命名。「出口はuser_idでuserテーブルから自分をフォローしているuserを取得する
+  has_many :followers, through: :reverse_of_relationships, source: :user
+
 def follow(other_user)
-  active_relationships.create(followed_id: other_user.id)
+  unless self == other_user
+    self.relationships.find_or_create_by(follow_id: other_user.id)
+  end
 end
 
-#ユーザーをアンフォローする
 def unfollow(other_user)
-  active_relationships.find_by(followed_id: other_user.id).destroy
+  relationship = self.relationships.find_by(follow_id: other_user.id)
+  relationship.destroy if relationship
 end
 
-#現在のユーザーがフォローしていたらtrueを返す
 def following?(other_user)
-  following.include?(other_user)
+  self.followings.include?(other_user)
+end
+
 end

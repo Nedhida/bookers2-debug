@@ -2,14 +2,13 @@ class CreateRelationships < ActiveRecord::Migration[5.2]
   def change
     create_table :relationships do |t|
 
-      t.integer :follower_id
-      t.integer :followed_id
+      t.references :user, foreign_key: true
+      t.references :follow, foreign_key: { to_table: :users }
 
       t.timestamps
+
+      #重複するものの保存がされないようにするデータベースの設定
+      t.index [:user_id, :follow_id], unique: true
     end
-    add_index :relationships, :follower_id
-    add_index :relationships, :followed_id
-    #同ユーザーへ２回以上のフォロー不可↓
-    add_index :relationships, [:follower_id, :followed_id], unique: true
   end
 end
