@@ -14,15 +14,20 @@
         <td>フォロー数：<%= user.followers.count %></td>
         <td>フォロワー数：<%= user.following.count %></td>
         <td>
-            <% if current_user.following %>
-              <%= form_for(current_user.active_relationship.find_by(followed_id: user.id), html: {method: :delete}) do |f| %>
-                <%= f.submit "フォロー外す" %>
+          <% unless current_user == user %>
+            <% if current_user.following?(user) %>
+              <%= form_for(current_user.active_relationships.find_by(follow_id: user.id), html: {method: :delete}) do |f| %>
+                <%= hidden_field_tag :follow_id, user.id %>
+                <%= f.submit 'フォロー外す' %>
               <% end %>
             <% else %>
               <%= form_for(current_user.active_relationships.build) do |f| %>
-                <%= f.submit "フォローする" %>
+                <%= hidden_field_tag :follow_id, user.id %>
+                <%= f.submit 'フォローする' %>
               <% end %>
             <% end %>
+          <% end %>
+
         </td>
         <td><%= link_to 'Show', user_path(user), class: "user_#{user.id}" %></td>
       </tr>
