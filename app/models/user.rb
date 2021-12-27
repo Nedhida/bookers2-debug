@@ -22,7 +22,7 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
 
 def follow(user_id)
-  self.active_relationships.find_or_create_by(followed_id: user_id)
+  self.active_relationships.create(followed_id: user_id)
 end
 
 #フォローがあればアンフォローする
