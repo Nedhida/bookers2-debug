@@ -29,16 +29,9 @@
             <%= render 'book_comments/count', book: @book %>
           </td>
         </tr>
-      </table>
-      <table class='table'>
-        <tr id="any-comments">
-          <%= render 'book_comments/index', book: @book %>
-        </tr>
-      </table>
-      <table class='table'>
-        <tr id="comment-form">
+        <div id="comments-area">
           <%= render 'book_comments/form', book: @book, book_comment: @book_comment %>
-        </tr>
+        </div>
       </table>
     </div>
   </div>
