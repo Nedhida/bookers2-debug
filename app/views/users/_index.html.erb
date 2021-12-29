@@ -11,8 +11,8 @@
       <tr>
         <td><%= attachment_image_tag(user, :profile_image, fallback: "no-image-icon.jpg", size:'40x40') %></td>
         <td><%= user.name %></td>
-        <td>フォロー数：<%= user.followers.count %></td>
-        <td>フォロワー数：<%= user.following.count %></td>
+        <td>フォロー数：<%= user.following.count %></td>
+        <td>フォロワー数：<%= user.followers.count %></td>
         <td>
           <% unless current_user == user %>
             <%= render "relationships/follow", user: user %>

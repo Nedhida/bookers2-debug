@@ -16,22 +16,23 @@ class User < ApplicationRecord
 
   #foregin_key = 入り口。source = 出口
 
+  has_many :relationships
+  #active_relationshipsという架空のクラス（モデル）を作成、relationshipsのfollower_idを参考にactiverelationshipsにアクセスする
   has_many :active_relationships, class_name:  "Relationship",foreign_key: "follower_id",dependent:   :destroy
   has_many :passive_relationships, class_name:  "Relationship",foreign_key: "followed_id",dependent:   :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
 def follow(user_id)
-  self.active_relationships.create(followed_id: user_id)
+  self.active_relationships.create!(followed_id: user_id)
 end
 
 #フォローがあればアンフォローする
 def unfollow(user_id)
-  active_relationships.find_by(followed_id: user_id).destroy
+  self.active_relationships.find_by(followed_id: user_id).destroy
 end
 
 def following?(user)
-  #self.followingsでフォローしているUserら取得、include?で(other_user)がt or f で含まれていないかを確認
   self.following.include?(user)
 end
 
