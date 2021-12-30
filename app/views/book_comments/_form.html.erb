@@ -16,8 +16,8 @@
   </tr>
 <% end %>
 <table class='table'>
-      <%= form_with(model:[book,book_comment], remote: true) do |f| %>
-        <%= f.text_area :comment, rows:'5',class:"form-control" %>
-        <%= f.submit "送信" %>
-      <% end %>
+  <%= form_with(model:[book,book_comment],method: :post, remote: true) do |f| %>
+    <%= f.text_area :comment, rows:'5',class:"form-control" %>
+    <%= f.submit "送信" %>
+  <% end %>
 </table>
