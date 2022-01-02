@@ -1,5 +1,5 @@
-<table class='table table-hover table-inverse'>
-  <tbody>
+
+  <tfoot>
     <h2>投稿数の前日比・前週比</h2>
     <tr>
       <th>今日の投稿数</th>
@@ -7,9 +7,12 @@
       <th>前日比</th>
     </tr>
     <tr>
-      <th><%=  %></th>
-      <th><%=  %></th>
-      <th><%= current_user.books.where('created_at > ?', Date.today - Date.yesterday).count %></th>
+      <th><%= today_book.count %></th>
+      <th><%= yesterday_book.count %></th>
+      <th>
+        <% @the_day_before = today_book.count / yesterday_book.count.to_f do %>
+        <%= (@the_day_before * 100).round %>
+        <% end %>
+      </th>
     </tr>
-  </tbody>
-</table>
+  </tfoot>
