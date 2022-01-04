@@ -10,7 +10,7 @@
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
       <% if @user.id == current_user.id %>
-        <%= render 'books/count', today_book: @today_book, yesterday_book: @yesterday_book, week_book: @week_book, last_week_book: @last_week_book %>
+        <%= render 'books/count', today_book: @today_book, yesterday_book: @yesterday_book, two_day_book: @two_day_book, three_day_book: @three_day_book, four_day_book: @four_day_book, five_day_book: @five_day_book, six_day_book: @six_day_book %>
       <% end %>
     </div>
   </div>
