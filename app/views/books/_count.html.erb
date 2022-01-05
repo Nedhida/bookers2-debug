@@ -22,9 +22,10 @@
     </tr>
   </thead>
 </table>
-<%= line_chart Book.id(:created_at).count %>
+<%= line_chart data.group_by_day(:created_at).count, title: "７日間の投稿数の比較", label: "投稿した本の数", min: 0, max: 10, zeros: true, discrete: true, legend: true %>
   <canvas id="myChart" width="400" height="400"></canvas>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <script>
     const ctx = document.getElementById("myChart").getContext('2d');
     const myLineChart = new Chart(ctx, {

@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @four_day_book = @books.four_day_ago
     @five_day_book = @books.five_day_ago
     @six_day_book = @books.six_day_ago
+    @data = @books.data
   end
 
   def index

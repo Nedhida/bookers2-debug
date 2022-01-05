@@ -19,4 +19,5 @@ class Book < ApplicationRecord
 	scope :four_day_ago,-> { where(created_at: 4.day.ago.all_day)}
 	scope :five_day_ago,-> { where(created_at: 5.day.ago.all_day)}
 	scope :six_day_ago, -> { where(created_at: 6.day.ago.all_day)}
+	scope :data, -> { where(created_at: 6.day.ago.beginning_of_day..Time.zone.now.end_of_day)}
 end
