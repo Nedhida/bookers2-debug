@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @four_day_book = @books.four_day_ago
     @five_day_book = @books.five_day_ago
     @six_day_book = @books.six_day_ago
-    @data = @books.data
+    @data = [['６日前', @books.six_day_ago.count],['５日前', @books.five_day_ago.count],['４日前', @books.four_day_ago.count], ['３日前', @books.three_day_ago.count], ['２日前', @books.two_day_ago.count], ['1日前', @books.yesterday.count], ['今日', @books.today.count]]
   end
 
   def index

@@ -22,7 +22,7 @@
     </tr>
   </thead>
 </table>
-<%= line_chart data.group_by_day(:created_at).count, title: "７日間の投稿数の比較", label: "投稿した本の数", min: 0, max: 10, zeros: true, discrete: true, legend: true %>
+<%= line_chart data, title: "７日間の投稿数の比較", label: "投稿した本の数", min: 0, max: 10, zeros: true, discrete: true, legend: true %>
   <canvas id="myChart" width="400" height="400"></canvas>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
