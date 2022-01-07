@@ -14,6 +14,9 @@ class User < ApplicationRecord
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: {maximum: 50}
 
+  has_many :group_users
+  has_many :groups, through: :group_users
+
   #foregin_key = 入り口。source = 出口
 
   has_many :relationships
