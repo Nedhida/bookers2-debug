@@ -12,6 +12,12 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
   end
 
+  def join
+    @group = Group.find(params[:id])
+    @group.users << current_user
+    redirect_to  groups_path
+  end
+
   def new
     @group = Group.new
   end
@@ -36,6 +42,12 @@ class GroupsController < ApplicationController
     else
       render "edit"
     end
+  end
+
+  def destroy
+    @group = Group.find(params[:id])
+    @group.users.delete(current_user)
+    redirect_to groups_path
   end
 
   private

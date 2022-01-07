@@ -15,7 +15,11 @@ Rails.application.routes.draw do
     end
 
 
-  resources :groups, except: [:destroy]
+  resources :groups do
+    member do
+      get :join
+    end
+  end
 
   root 'homes#top'
   get 'home/about' => 'homes#about'
