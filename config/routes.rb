@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   devise_for :users
     resources :users,only: [:show,:index,:edit,:update] do
+      get "search", to: "users#search"
       resource :relationships, only: [:create, :destroy]
       member do
         get :following, :followers

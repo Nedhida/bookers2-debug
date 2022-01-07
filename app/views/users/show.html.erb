@@ -10,8 +10,19 @@
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
       <% if @user.id == current_user.id %>
-        <%= render 'books/count', data: @data, today_book: @today_book, yesterday_book: @yesterday_book, two_day_book: @two_day_book, three_day_book: @three_day_book, four_day_book: @four_day_book, five_day_book: @five_day_book, six_day_book: @six_day_book %>
+        <%= form_with url: user_search_path(@user), method: :get do |f| %>
+          <%= f.date_field :created_at %>
+          <%= f.submit '検索', class: 'btn btn-primary'  %>
+        <% end %>
+
+        <div id="search_result">
+          <% if @search_book.present? %>
+            <%= render 'search', search_book: @search_book %>　#③
+          <% end %>
+        </div>
+
       <% end %>
+
     </div>
   </div>
 </div>
