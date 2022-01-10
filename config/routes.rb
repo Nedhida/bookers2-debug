@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     member do
       get :join
     end
+    get "new/mail" => "groups#new_mail"
+    get "send_mail" => "groups#send_mail"
   end
 
   root 'homes#top'
