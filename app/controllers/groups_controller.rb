@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
 
   before_action :ensure_corrent_user, only: [:edit, :update]
+  before_action :mail_ensure, only: [:new_mail, :send_mail]
 
   def index
     @book = Book.new
@@ -73,5 +74,13 @@ class GroupsController < ApplicationController
       redirect_to groups_path
     end
   end
+
+  def mail_ensure
+    @group = Group.find(params[:group_id])
+    unless @group.owner_id == current_user.id
+      redirect_to groups_path
+    end
+  end
+
 
 end
